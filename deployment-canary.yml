@@ -1,35 +1,38 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Rollout
 metadata:
-  name: nginx-canary
+  name: kubeserve-canary
 spec:
   replicas: 4
 
   selector:
     matchLabels:
-      app: nginx
+      app: kubeserve
 
   template:
     metadata:
       labels:
-        app: nginx
+        app: kubeserve
     spec:
       containers:
-      - name: nginx
-        image: leaddevops/kubeserve:v2
+      - name: c1
+        image: leaddevops/kubeserve:v1
         ports:
         - containerPort: 80
 
   strategy:
-    canary:
-      steps:
-      - setWeight: 25
-      - pause: {}
+   canary:
+    steps:
+    - setWeight: 25
+    - pause:
+        duration: 30s
 
-      - setWeight: 50
-      - pause: {}
+    - setWeight: 50
+    - pause:
+        duration: 30s
 
-      - setWeight: 75
-      - pause: {}
+    - setWeight: 75
+    - pause:
+        duration: 30s
 
-      - setWeight: 100
+    - setWeight: 100
