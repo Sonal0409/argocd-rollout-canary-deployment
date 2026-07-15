@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: nginx
-        image: leaddevops/kubeserve:v1
+        image: leaddevops/kubeserve:v2
         ports:
         - containerPort: 80
 
